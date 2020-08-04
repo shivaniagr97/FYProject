@@ -15,10 +15,10 @@ const ccpPath = path.resolve(__dirname, '..', '..', '..', 'blockchain-network', 
 router.post('/', async (req, res) => {
 
     try {
-        let sessionKeyExists = await handler.verifySessionKey(req.body.requesterID, req.body.sessionKey);
-        if (!sessionKeyExists) {
-            res.send("Incorrect");
-        } else {
+        // let sessionKeyExists = await handler.verifySessionKey(req.body.requesterID, req.body.sessionKey);
+        // if (!sessionKeyExists) {
+        //     res.send("Incorrect");
+        // } else {
             const walletPath = path.join(process.cwd(), '../wallet');
             const wallet = new FileSystemWallet(walletPath);
 
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
 
             res.send("Correct");
 
-        }
+        // }
     } catch (error) {
         console.log(` ... Failed to submit Transaction to the ledger ${error} ... `);
     }

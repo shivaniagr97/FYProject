@@ -8,7 +8,7 @@ var handler = require('./sessionKeyHandler');
 router.post('/', async (req, res) => {
 
     try {
-        await handler.removeSessionKey(req.body.id, req.body.sessionKey);
+        // await handler.removeSessionKey(req.body.id, req.body.sessionKey);
         res.send('Correct');
     } catch (error) {
         console.log('failed to log out' + error);

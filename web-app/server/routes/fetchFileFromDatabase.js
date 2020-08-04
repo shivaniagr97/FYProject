@@ -7,10 +7,10 @@ var handler = require('./sessionKeyHandler');
 router.post('/', async (req, res) => {
     try {
         console.log(req.body);
-        let sessionKeyExists = await handler.verifySessionKey(req.body.id, req.body.sessionKey);
-        if (!sessionKeyExists) {
-            res.send("Incorrect");
-        } else {
+        // let sessionKeyExists = await handler.verifySessionKey(req.body.id, req.body.sessionKey);
+        // if (!sessionKeyExists) {
+        //     res.send("Incorrect");
+        // } else {
             let documentId = await databaseHandler.getFileDetailsAndDocumentId(req.body.userID, req.body.documentId, req.body.type);
             if (documentId) {
                 let fileSchema = {
@@ -51,7 +51,7 @@ router.post('/', async (req, res) => {
                 }
                 // await conn.close();
             }
-        }
+        // }
     } catch (e) {
         console.log(e);
     }

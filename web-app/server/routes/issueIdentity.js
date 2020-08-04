@@ -56,10 +56,10 @@ router.post('/', DocumentCollection.single('file'), async (req, res) => {
             req.body.documentID = publicId;
             req.body.document = req.file.md5;
 
-            let sessionKeyExists = await handler.verifySessionKey(req.body.issuerID, req.body.sessionKey);
-            if (!sessionKeyExists) {
-                res.send("Incorrect");
-            } else {
+            // let sessionKeyExists = await handler.verifySessionKey(req.body.issuerID, req.body.sessionKey);
+            // if (!sessionKeyExists) {
+            //     res.send("Incorrect");
+            // } else {
                 const walletPath = path.join(process.cwd(), '../wallet');
                 const wallet = new FileSystemWallet(walletPath);
 
@@ -88,7 +88,7 @@ router.post('/', DocumentCollection.single('file'), async (req, res) => {
                 res.send("Correct");
 
             }
-        }
+        // }
     } catch (error) {
         console.log(` ... Failed to submit Transaction to the ledger ${error} ... `);
     }

@@ -15,10 +15,10 @@ const ccpPath = path.resolve(__dirname, '..', '..', '..', 'blockchain-network', 
 router.post('/', async (req, res) => {
 
     try {
-        let sessionKeyExists = await handler.verifySessionKey(req.body.userID, req.body.sessionKey);
-        if (!sessionKeyExists) {
-            res.send("Incorrect");
-        } else {
+        // let sessionKeyExists = await handler.verifySessionKey(req.body.userID, req.body.sessionKey);
+        // if (!sessionKeyExists) {
+        //     res.send("Incorrect");
+        // } else {
             const walletPath = path.join(process.cwd(), '../wallet');
             const wallet = new FileSystemWallet(walletPath);
 
@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
             const contract = network.getContract('SSIContract');
 
             // Submit the specified transaction.
-
             req.body.verifyRequestId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
             console.log(req.body);
             let response = await contract.submitTransaction('verifyRequest', req.body.userID, req.body.documentID,
@@ -50,7 +49,7 @@ router.post('/', async (req, res) => {
 
             res.send("Correct");
 
-        }
+        // }
     } catch (error) {
         console.log(` ... Failed to submit Transaction to the ledger ${error} ... `);
     }

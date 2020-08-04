@@ -133,6 +133,7 @@ export default function ServiceRequest(props) {
             serviceRequestSchema.userID = userData.userID;
             serviceRequestSchema.sessionKey = userData.sessionKey;
             console.log(currentServiceProviderDetails);
+            console.log("here");
             console.log(serviceRequestSchema);
             let response = await axios.post(ADDRESS + `createIssueRequest`, serviceRequestSchema);
             response = response.data;

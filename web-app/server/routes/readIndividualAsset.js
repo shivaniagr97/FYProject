@@ -17,10 +17,10 @@ router.post('/', async (req, res) => {
     try {
         console.log(req.body);
         req.body.id = req.body.verifierID || req.body.userID || req.body.issuerID;
-        let sessionKeyExists = await handler.verifySessionKey(req.body.id, req.body.sessionKey);
-        if (!sessionKeyExists) {
-            res.send("Incorrect");
-        } else {
+        // let sessionKeyExists = await handler.verifySessionKey(req.body.id, req.body.sessionKey);
+        // if (!sessionKeyExists) {
+        //     res.send("Incorrect");
+        // } else {
             const walletPath = path.join(process.cwd(), '../wallet');
             const wallet = new FileSystemWallet(walletPath);
 
@@ -103,7 +103,7 @@ router.post('/', async (req, res) => {
             // Disconnect from the gateway.
             await gateway.disconnect();
             res.send(response);
-        }
+        // }
     } catch (error) {
         console.log(` ... Failed to submit Transaction to the ledger ${error} ... `);
     }

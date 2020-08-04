@@ -28,6 +28,7 @@ const storage = new GridFsStorage({
         return new Promise((resolve, reject) => {
             crypto.randomBytes(16, (err, buf) => {
                 if (err) {
+                    console.log("mongo error");
                     return reject(err);
                 }
 
@@ -56,10 +57,10 @@ router.post('/', DocumentCollection.single('file'), async (req, res) => {
             console.log(publicId);
             req.body.documentID = publicId;
             req.body.document = req.file.md5;
-            let sessionKeyExists = await handler.verifySessionKey(req.body.holderID, req.body.sessionKey);
-            if (!sessionKeyExists) {
-                res.send("Incorrect");
-            } else {
+            // let sessionKeyExists = await handler.verifySessionKey(req.body.holderID, req.body.sessionKey);
+            // if (!sessionKeyExists) {
+            //     res.send("Incorrect");
+            // } else {
                 const walletPath = path.join(process.cwd(), '../wallet');
                 const wallet = new FileSystemWallet(walletPath);
 
@@ -77,7 +78,6 @@ router.post('/', DocumentCollection.single('file'), async (req, res) => {
                 // Get the contract from the network.
                 const contract = network.getContract('SSIContract');
 
-
                 // Submit the specified transaction.
                 let response = await contract.submitTransaction('createIdentity', JSON.stringify(req.body));
                 response = JSON.stringify(response.toString());
@@ -87,7 +87,7 @@ router.post('/', DocumentCollection.single('file'), async (req, res) => {
                 await gateway.disconnect();
 
                 res.send("Correct");
-            }
+            // }
         }
     } catch (error) {
         console.log(` ... Failed to submit Transaction to the ledger ${error} ... `);
